@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiran Kumar Rapolu — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #e2e6f0;
+    --accent: #4f46e5;
+    --accent2: #0891b2;
+    --accent3: #e11d48;
+    --text: #1a1a2e;
+    --muted: #64748b;
+    --nav-w: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--nav-w);
+    min-height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 100;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.06);
+  }
+
+  .profile-block {
+    padding: 32px 24px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 20px rgba(79,70,229,0.25);
+    border: 3px solid rgba(79,70,229,0.2);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 900;
+    color: white;
+  }
+  .avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .profile-title {
+    font-size: 11.5px;
+    color: var(--accent2);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* page navigation */
+  .page-nav {
+    padding: 20px 16px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .download-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 16px 16px 0;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    box-shadow: 0 3px 12px rgba(79,70,229,0.25);
+    letter-spacing: 0.01em;
+  }
+  .download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .download-btn:active { transform: translateY(0); }
+
+  .nav-section-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 8px;
+    margin-bottom: 8px;
+  }
+
+  .page-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 2px;
+    border: 1px solid transparent;
+  }
+
+  .page-link:hover { background: var(--card); color: var(--text); }
+  .page-link.active {
+    background: rgba(79,70,229,0.1);
+    color: var(--accent);
+    border-color: rgba(79,70,229,0.2);
+  }
+
+  .page-link .icon {
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* project tabs */
+  .projects-nav {
+    padding: 16px 16px 8px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .projects-nav::-webkit-scrollbar { width: 3px; }
+  .projects-nav::-webkit-scrollbar-track { background: transparent; }
+  .projects-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .proj-tab {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 3px;
+    border: 1px solid transparent;
+  }
+
+  .proj-tab:hover { background: var(--card); }
+  .proj-tab.active {
+    background: rgba(8,145,178,0.08);
+    border-color: rgba(8,145,178,0.2);
+  }
+
+  .proj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  .proj-tab.active .proj-num { color: var(--accent2); }
+
+  .proj-name {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.35;
+    font-weight: 500;
+  }
+  .proj-tab.active .proj-name { color: var(--text); }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: var(--nav-w);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  .page { display: none; padding: 48px 52px; max-width: 860px; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PAGE HEADERS ── */
+  .page-header {
+    margin-bottom: 40px;
+  }
+
+  .page-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .page-divider {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    margin-top: 16px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(79,70,229,0.3); box-shadow: 0 4px 20px rgba(79,70,229,0.08); }
+
+  /* ── HOME ── */
+  .home-hero {
+    padding: 60px 52px 0;
+  }
+
+  .home-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(79,70,229,0.08);
+    border: 1px solid rgba(79,70,229,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .home-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .home-title span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .home-summary {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+
+  .home-contact {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 52px;
+  }
+
+  .contact-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .contact-chip span { color: var(--accent2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 0 52px 52px;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .skill-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+
+  .tag {
+    background: rgba(79,70,229,0.08);
+    border: 1px solid rgba(79,70,229,0.2);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11.5px;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tag.green {
+    background: rgba(8,145,178,0.08);
+    border-color: rgba(8,145,178,0.2);
+    color: var(--accent2);
+  }
+
+  .tag.red {
+    background: rgba(225,29,72,0.08);
+    border-color: rgba(225,29,72,0.2);
+    color: var(--accent3);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 12px;
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .exp-badge {
+    background: rgba(79,70,229,0.08);
+    border: 1px solid rgba(79,70,229,0.2);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-size: 13.5px;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .exp-bullets {
+    list-style: none;
+  }
+
+  .exp-bullets li {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-card {
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+
+  .edu-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(8,145,178,0.1));
+    border: 1px solid rgba(79,70,229,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .edu-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .edu-body p {
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .edu-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    margin-top: 6px;
+  }
+
+  /* ── PROJECT DETAIL ── */
+  .proj-detail { display: none; }
+  .proj-detail.active { display: block; }
+
+  .proj-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .meta-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .meta-key {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .meta-val {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .proj-desc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .proj-desc h4 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .proj-desc p {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .tech-stack {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 12px;
+  }
+
+  .tech-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(8,145,178,0.08);
+    border: 1px solid rgba(8,145,178,0.2);
+    color: var(--accent2);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+
+  .roles-list {
+    list-style: none;
+  }
+  .roles-list li {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .roles-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent2);
+    font-size: 11px;
+    top: 3px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 16px;
+    margin-top: 28px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar { width: 200px; }
+    .main { margin-left: 200px; }
+    .home-hero, .page { padding: 32px 24px; }
+    .skills-grid { padding: 0 24px 32px; }
+    .home-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="profile-block">
+    <div class="avatar"><img src="https://raw.githubusercontent.com/kirankumarrapolu/my_portfolio/main/profile.jpg" alt="Kiran Kumar Rapolu" onerror="this.style.display='none';this.parentNode.innerHTML='KR'"></div>
+    <div class="profile-name">Kiran Kumar Rapolu</div>
+    <div class="profile-title">Tech Lead · Full Stack</div>
+  </div>
+
+  <div class="page-nav">
+    <a class="download-btn" href="https://raw.githubusercontent.com/kirankumarrapolu/my_portfolio/main/resume.docx" download="Kiran_Kumar_Rapolu_Resume.docx">
+      <span>⬇</span> Download Resume
+    </a>
+    <div class="nav-section-label" style="margin-top:16px;">Navigate</div>
+    <div class="page-link active" onclick="showPage('home')">
+      <span class="icon">⌂</span> Overview
+    </div>
+    <div class="page-link" onclick="showPage('experience')">
+      <span class="icon">◈</span> Experience
+    </div>
+    <div class="page-link" onclick="showPage('education')">
+      <span class="icon">◎</span> Education
+    </div>
+  </div>
+
+  <div class="projects-nav">
+    <div class="nav-section-label">AI Projects</div>
+    <div class="proj-tab active" onclick="showProject('p8')">
+      <span class="proj-num">#8</span>
+      <span class="proj-name">MARS – Iron Planet</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p7')">
+      <span class="proj-num">#7</span>
+      <span class="proj-name">ESS – Enterprise Sale Solutions</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p6')">
+      <span class="proj-num">#6</span>
+      <span class="proj-name">Compass Policy Admin</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p5')">
+      <span class="proj-num">#5</span>
+      <span class="proj-name">Farm Blanket Inventory</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p4')">
+      <span class="proj-num">#4</span>
+      <span class="proj-name">Batchprint</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p3')">
+      <span class="proj-num">#3</span>
+      <span class="proj-name">ACH</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p2')">
+      <span class="proj-num">#2</span>
+      <span class="proj-name">FCPP – Auto Endorsement</span>
+    </div>
+    <div class="proj-tab" onclick="showProject('p1')">
+      <span class="proj-num">#1</span>
+      <span class="proj-name">Material Management</span>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HOME / OVERVIEW -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="home-tag">
+        <span>●</span> Available for opportunities
+      </div>
+      <h1 class="home-title">Kiran Kumar<br><span>Rapolu</span></h1>
+      <p class="home-summary">
+        14+ years of expertise in Software Analysis, Design, Development, Integration and Testing of sophisticated multi-tier and web-based systems. Skilled in Java/J2EE, Spring Boot, Angular, Microservices, and Cloud platforms — with a strong track record of leading cross-functional teams.
+      </p>
+      <div class="home-contact">
+        <div class="contact-chip"><span>✉</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660d0f1407080d130b0714140716090a1326010b070f0a4805090b">[email&#160;protected]</a></div>
+        <div class="contact-chip"><span>☎</span> +91-9849707065</div>
+      </div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-label">Backend</div>
+        <div class="skill-tags">
+          <span class="tag">Java / J2EE</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Hibernate</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">SOAP / REST</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-label">Frontend</div>
+        <div class="skill-tags">
+          <span class="tag green">Angular 10+</span>
+          <span class="tag green">AngularJS</span>
+          <span class="tag green">HTML / CSS</span>
+          <span class="tag green">JavaScript</span>
+          <span class="tag green">jQuery</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-label">Databases</div>
+        <div class="skill-tags">
+          <span class="tag red">Oracle 12c</span>
+          <span class="tag red">MS SQL Server</span>
+          <span class="tag red">IBM DB2</span>
+          <span class="tag red">CouchBase</span>
+          <span class="tag red">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-label">DevOps & Cloud</div>
+        <div class="skill-tags">
+          <span class="tag">AWS</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Maven</span>
+          <span class="tag">Gradle</span>
+          <span class="tag">JIRA</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-label">Servers</div>
+        <div class="skill-tags">
+          <span class="tag green">JBoss</span>
+          <span class="tag green">Apache Tomcat</span>
+          <span class="tag green">NGINX</span>
+          <span class="tag green">Resin</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-label">Methodology</div>
+        <div class="skill-tags">
+          <span class="tag">Agile / Scrum</span>
+          <span class="tag">Microservices</span>
+          <span class="tag">MVC</span>
+          <span class="tag">DAO Pattern</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE PAGE -->
+  <div class="page" id="page-experience">
+    <div class="page-header">
+      <div class="page-eyebrow">// career history</div>
+      <h2 class="page-title">Experience</h2>
+      <div class="page-divider"></div>
+    </div>
+
+    <div class="card">
+      <div class="exp-header">
+        <div class="exp-role">Tech Lead</div>
+        <div class="exp-badge">2008 – Present</div>
+      </div>
+      <div class="exp-company">Jarus Technologies India Pvt. Ltd.</div>
+      <ul class="exp-bullets">
+        <li>Led end-to-end delivery of 8+ enterprise software projects across insurance, logistics and auction domains.</li>
+        <li>Architected and developed full-stack applications using Java/J2EE, Spring Boot, Angular and Microservices.</li>
+        <li>Managed and mentored cross-functional teams of up to 22 engineers.</li>
+        <li>Championed Agile/Scrum methodology across all project cycles — from requirement analysis to production support.</li>
+        <li>Built robust REST APIs and DAO layers using Hibernate; integrated with cloud infrastructure on AWS.</li>
+        <li>Resolved cross-functional production issues, improved system performance and implemented business process improvements.</li>
+        <li>Collaborated directly with US-based clients like Ritchie Bros., IronPlanet, and Farmers Alliance Mutual Insurance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EDUCATION PAGE -->
+  <div class="page" id="page-education">
+    <div class="page-header">
+      <div class="page-eyebrow">// academic background</div>
+      <h2 class="page-title">Education</h2>
+      <div class="page-divider"></div>
+    </div>
+
+    <div class="card">
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-body">
+          <h3>Bachelor of Engineering</h3>
+          <p>Electronics & Communication Engineering</p>
+          <p style="color: var(--accent2); margin-top:4px; font-weight:500; font-size:13.5px;">JNT University, Andhra Pradesh</p>
+          <div class="edu-year">Graduated · 2005</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Continuous Learning</p>
+    <div class="card" style="display:flex; gap:20px; align-items:flex-start;">
+      <div class="edu-icon" style="font-size:18px;">⚙️</div>
+      <div class="edu-body">
+        <h3 style="font-size:16px;">14+ Years of Professional Practice</h3>
+        <p>Continuously upskilled across Java, Spring Boot, Angular, Microservices, AWS and modern DevOps practices through hands-on delivery of enterprise software systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS PAGE -->
+  <div class="page" id="page-projects">
+    <div class="page-header">
+      <div class="page-eyebrow">// project detail</div>
+      <h2 class="page-title" id="proj-title">MARS – Iron Planet</h2>
+      <div class="page-divider"></div>
+    </div>
+
+    <!-- P8 -->
+    <div class="proj-detail active" id="p8">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">RitchieBros (USA)</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">10 Engineers</div></div>
+        <div class="meta-item"><div class="meta-key">Project #</div><div class="meta-val">#8 — MARS</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">Angular 10</span>
+          <span class="tech-pill">Java / J2EE</span>
+          <span class="tech-pill">Spring Boot</span>
+          <span class="tech-pill">Hibernate</span>
+          <span class="tech-pill">Oracle 12c</span>
+          <span class="tech-pill">Microservices</span>
+          <span class="tech-pill">AWS Cloud</span>
+          <span class="tech-pill">HTML / CSS / Flex</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>Ritchie Bros. and IronPlanet combined to create MARS — a unified Multi-channel Administration and Reporting System. The platform consolidates all selling formats (on-site auction, online auction, Buy Now / Make Offer) and all marketplaces (RBA, IP, TP, GP) into a single admin portal with role-based access control used globally by staff at every RBA facility.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>Developed backend REST services using Spring and DAO layer using Hibernate.</li>
+          <li>Developed Angular components for Login and every screen of the application.</li>
+          <li>Understood client requirements and analyzed requirement documents.</li>
+          <li>Led end-to-end Designing, Development, and Support for the Solution.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P7 -->
+    <div class="proj-detail" id="p7">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">RitchieBros & Iron Planet</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">15 Engineers</div></div>
+        <div class="meta-item"><div class="meta-key">Environment</div><div class="meta-val">Linux, Nginx, AWS</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">AngularJS</span>
+          <span class="tech-pill">Node.js</span>
+          <span class="tech-pill">SQL Server 2014</span>
+          <span class="tech-pill">CouchBase</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>ESS (Enterprise Sale Solutions) is a reverse-logistics system for managing end-of-lease assets through a multi-stage process. Deployed for Toyota, Shell, Chevron, Assetworks and Iron Planet — each with a custom workflow. Assets flow from dealer inspection → private marketplace → public auction across multiple customers with full transparency via interactive reports.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>Designed and developed the core ESS platform.</li>
+          <li>Resolved bugs and production support issues across all ESS client projects.</li>
+          <li>Resolved cross-functional issues at project level.</li>
+          <li>Identified and implemented business process improvements.</li>
+          <li>Provided ongoing production support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="proj-detail" id="p6">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Farmers Alliance Mutual Insurance, KS</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">22 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">Java / JEE</span>
+          <span class="tech-pill">JBOSS</span>
+          <span class="tech-pill">JSF / AJAX</span>
+          <span class="tech-pill">Hibernate</span>
+          <span class="tech-pill">Oracle</span>
+          <span class="tech-pill">DB2</span>
+          <span class="tech-pill">Spring</span>
+          <span class="tech-pill">Maven</span>
+          <span class="tech-pill">Drools</span>
+          <span class="tech-pill">SOAP Web Services</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>Compass is a large-scale insurance policy processing system developed in stages to replace legacy client/server systems. Covers Commercial Property and Home Owners products across multiple states, serving internal users, agents and policy holders.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>System study and requirement analysis.</li>
+          <li>Documented requirements specifications.</li>
+          <li>Designed database tables for the policy schema.</li>
+          <li>Led Designing, Development and ongoing Support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="proj-detail" id="p5">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Farmers Alliance Mutual Insurance, KS</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">2 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">Java / JEE</span>
+          <span class="tech-pill">JBOSS</span>
+          <span class="tech-pill">JSF / AJAX</span>
+          <span class="tech-pill">Hibernate</span>
+          <span class="tech-pill">Spring</span>
+          <span class="tech-pill">Maven</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>FBI (Farm Blanket Inventory) is a system for listing and managing an inventory of farm property included on blanket insurance policies. Supports real-time updates by agents or FAMI employees, category totaling, and flexible sorting/filtering of inventory data.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>System study and requirement analysis.</li>
+          <li>Documented requirements specifications.</li>
+          <li>Designed the database schema for farm inventory management.</li>
+          <li>Led Designing, Development and Support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="proj-detail" id="p4">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Farmers Alliance Mutual Insurance, KS</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">5 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">JSF</span>
+          <span class="tech-pill">Web Services</span>
+          <span class="tech-pill">Saxon / XSLT</span>
+          <span class="tech-pill">Exstream Engine</span>
+          <span class="tech-pill">Hibernate</span>
+          <span class="tech-pill">Spring</span>
+          <span class="tech-pill">SQL Server</span>
+          <span class="tech-pill">JBoss 4.0</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>Batchprint handles the printing and uploading of policy documents to Acrosoft content management. It ingests data from RBS in 12 form types, transforms them through the Exstream engine via parsers, and uploads to both OnDemand and Acrosoft CMS with metadata written to CSV and web service integration for upload status.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>System study and requirement analysis.</li>
+          <li>Enhancement, issues fixing and ongoing support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="proj-detail" id="p3">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Farmers Alliance Mutual Insurance, KS</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">3 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">Java / JEE</span>
+          <span class="tech-pill">JBOSS</span>
+          <span class="tech-pill">GWT</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>ACH is a banking application that allows specific users to create and maintain bank account histories for insurance agents.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>Resolved reported bugs and production support issues.</li>
+          <li>Resolved cross-functional issues at project level.</li>
+          <li>Identified and implemented business process improvements.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="proj-detail" id="p2">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Farmers Alliance Mutual Insurance, KS</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">10 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">Java / JEE</span>
+          <span class="tech-pill">JBOSS</span>
+          <span class="tech-pill">GWT</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>FCPP (Personal Auto Endorsement Application) allows insurance agents to add, remove and update drivers and vehicles on automobile policies in real time. Integrates with multiple external services and legacy applications to enable straight-through processing of endorsements.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>Resolved reported bugs and production support issues.</li>
+          <li>Designed and developed core project modules.</li>
+          <li>Resolved cross-functional issues at project level.</li>
+          <li>Identified and implemented business process improvements.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P1 -->
+    <div class="proj-detail" id="p1">
+      <div class="proj-meta-grid">
+        <div class="meta-item"><div class="meta-key">Customer</div><div class="meta-val">Paradip Port Trust</div></div>
+        <div class="meta-item"><div class="meta-key">Team Size</div><div class="meta-val">8 Engineers</div></div>
+      </div>
+      <div class="proj-desc">
+        <h4>Technologies</h4>
+        <div class="tech-stack">
+          <span class="tech-pill">JSP / Servlets</span>
+          <span class="tech-pill">Apache Tomcat</span>
+          <span class="tech-pill">JavaScript</span>
+          <span class="tech-pill">HTML / CSS</span>
+          <span class="tech-pill">Oracle 8i</span>
+          <span class="tech-pill">iReports</span>
+        </div>
+      </div>
+      <div class="proj-desc">
+        <h4>Description</h4>
+        <p>Material Management System for Paradip Port Trust covering 8 departments with supervision of Stores, Purchase, Establishment and coordination functions. Covers Indent Management, Enquiries, Tenders, Purchase Orders, Invoice Details, Goods Receipts, Purchase Returns, Goods Issues, Issue Returns and Stock Accounting.</p>
+      </div>
+      <div class="proj-desc">
+        <h4>Roles & Responsibilities</h4>
+        <ul class="roles-list">
+          <li>Designed the user interface and scripted business logic.</li>
+          <li>Designed database tables and wrote validations.</li>
+          <li>Developed server-side JSPs and Servlets.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /page-projects -->
+
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const projTitles = {
+    p8: 'MARS – Iron Planet',
+    p7: 'ESS – Enterprise Sale Solutions',
+    p6: 'Compass Policy Admin System',
+    p5: 'Farm Blanket Inventory (FBI)',
+    p4: 'Batchprint',
+    p3: 'ACH',
+    p2: 'FCPP – Personal Auto Endorsement',
+    p1: 'Material Management System'
+  };
+
+  function showPage(name) {
+    // hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // deactivate all nav links
+    document.querySelectorAll('.page-link').forEach(l => l.classList.remove('active'));
+
+    if (name === 'projects') {
+      document.getElementById('page-projects').classList.add('active');
+    } else {
+      document.getElementById('page-' + name).classList.add('active');
+      document.querySelector('.page-link[onclick="showPage(\'' + name + '\')"]').classList.add('active');
+    }
+  }
+
+  function showProject(id) {
+    // show projects page
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('page-projects').classList.add('active');
+
+    // highlight proj tab
+    document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    // show correct detail
+    document.querySelectorAll('.p
