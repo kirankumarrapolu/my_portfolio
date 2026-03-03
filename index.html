@@ -565,48 +565,48 @@
       <span>⬇</span> Download Resume
     </a>
     <div class="nav-section-label" style="margin-top:16px;">Navigate</div>
-    <div class="page-link active" onclick="showPage('home')">
+    <div class="page-link active" data-page="home" onclick="showPage('home')">
       <span class="icon">⌂</span> Overview
     </div>
-    <div class="page-link" onclick="showPage('experience')">
+    <div class="page-link" data-page="experience" onclick="showPage('experience')">
       <span class="icon">◈</span> Experience
     </div>
-    <div class="page-link" onclick="showPage('education')">
+    <div class="page-link" data-page="education" onclick="showPage('education')">
       <span class="icon">◎</span> Education
     </div>
   </div>
 
   <div class="projects-nav">
     <div class="nav-section-label">AI Projects</div>
-    <div class="proj-tab active" onclick="showProject('p8')">
+    <div class="proj-tab active" data-id="p8" onclick="showProject('p8')">
       <span class="proj-num">#8</span>
       <span class="proj-name">MARS – Iron Planet</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p7')">
+    <div class="proj-tab" data-id="p7" onclick="showProject('p7')">
       <span class="proj-num">#7</span>
       <span class="proj-name">ESS – Enterprise Sale Solutions</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p6')">
+    <div class="proj-tab" data-id="p6" onclick="showProject('p6')">
       <span class="proj-num">#6</span>
       <span class="proj-name">Compass Policy Admin</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p5')">
+    <div class="proj-tab" data-id="p5" onclick="showProject('p5')">
       <span class="proj-num">#5</span>
       <span class="proj-name">Farm Blanket Inventory</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p4')">
+    <div class="proj-tab" data-id="p4" onclick="showProject('p4')">
       <span class="proj-num">#4</span>
       <span class="proj-name">Batchprint</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p3')">
+    <div class="proj-tab" data-id="p3" onclick="showProject('p3')">
       <span class="proj-num">#3</span>
       <span class="proj-name">ACH</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p2')">
+    <div class="proj-tab" data-id="p2" onclick="showProject('p2')">
       <span class="proj-num">#2</span>
       <span class="proj-name">FCPP – Auto Endorsement</span>
     </div>
-    <div class="proj-tab" onclick="showProject('p1')">
+    <div class="proj-tab" data-id="p1" onclick="showProject('p1')">
       <span class="proj-num">#1</span>
       <span class="proj-name">Material Management</span>
     </div>
@@ -1018,41 +1018,41 @@
 
 </main>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const projTitles = {
-    p8: 'MARS – Iron Planet',
-    p7: 'ESS – Enterprise Sale Solutions',
-    p6: 'Compass Policy Admin System',
-    p5: 'Farm Blanket Inventory (FBI)',
-    p4: 'Batchprint',
-    p3: 'ACH',
-    p2: 'FCPP – Personal Auto Endorsement',
-    p1: 'Material Management System'
-  };
 
+<script>
   function showPage(name) {
-    // hide all pages
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    // deactivate all nav links
     document.querySelectorAll('.page-link').forEach(l => l.classList.remove('active'));
-
-    if (name === 'projects') {
-      document.getElementById('page-projects').classList.add('active');
-    } else {
-      document.getElementById('page-' + name).classList.add('active');
-      document.querySelector('.page-link[onclick="showPage(\'' + name + '\')"]').classList.add('active');
-    }
+    document.getElementById('page-' + name).classList.add('active');
+    var link = document.querySelector('[data-page="' + name + '"]');
+    if (link) link.classList.add('active');
   }
 
   function showProject(id) {
-    // show projects page
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.page-link').forEach(l => l.classList.remove('active'));
     document.getElementById('page-projects').classList.add('active');
 
-    // highlight proj tab
     document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    var tab = document.querySelector('[data-id="' + id + '"]');
+    if (tab) tab.classList.add('active');
 
-    // show correct detail
-    document.querySelectorAll('.p
+    document.querySelectorAll('.proj-detail').forEach(d => d.classList.remove('active'));
+    var detail = document.getElementById(id);
+    if (detail) detail.classList.add('active');
+
+    var titles = {
+      p8: 'MARS - Iron Planet',
+      p7: 'ESS - Enterprise Sale Solutions',
+      p6: 'Compass Policy Admin System',
+      p5: 'Farm Blanket Inventory (FBI)',
+      p4: 'Batchprint',
+      p3: 'ACH',
+      p2: 'FCPP - Personal Auto Endorsement',
+      p1: 'Material Management System'
+    };
+    document.getElementById('proj-title').textContent = titles[id] || '';
+  }
+</script>
+</body>
+</html>
